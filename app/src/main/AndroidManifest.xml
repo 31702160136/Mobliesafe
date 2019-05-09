@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="cn.mmvtc.mobliesafe"
+          android:versionCode="1"
+          android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="16"/>
+    <!-- 配置测试的指令集，配置测试那个应用程序 -->
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="cn.mmvtc.mobliesafe">
+    </instrumentation>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name=".chapter02.App"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <uses-library android:name=" android.test.runner"/>
+
+        <activity android:name=".chapter01.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".chapter02.reciever.BootCompleteReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".HomeActivity"/>
+        <!-- <activity android:name=".chapter02.dialog.SetUpPasswordDialog" /> -->
+        <!-- <activity android:name=".chapter02.dialog.InterPasswordDialog" /> -->
+        <!-- 手机防盗 -->
+        <activity android:name=".chapter02.LostFindActivity"/>
+        <activity android:name=".chapter02.SetUp2Activity"/>
+        <activity android:name=".chapter02.SetUp1Activity"/>
+        <activity android:name=".chapter02.SetUp3Activity"/>
+        <!-- <activity android:name=".chapter02.BaseSetUpActivity"></activity> -->
+        <!-- 通讯卫士 -->
+        <receiver
+            android:name=".chapter02.reciever.SmsLostFingReciver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+        <!-- 配置设备超级管理员广播接收者，引用xml策略声明device_admin_sample -->
+        <receiver
+            android:name=".chapter02.reciever.MyDeviceAdminReciever"
+            android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.device.admin"
+                android:resource="@xml/device_admin_sample"/>
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".chapter02.service.GPSLocationService"
+            android:permission="true">
+
+            <!-- 服务常驻内存 -->
+        </service>
+
+        <activity android:name=".chapter03.SecurityPhoneActivity">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+        <activity android:name=".chapter03.AddBlackNumberActivity">
+        </activity>
+        <!-- 拦截黑名单信息 -->
+        <receiver
+            android:name=".chapter03.reciever.InterceptSmsReciever"
+            android:enabled="false"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".chapter03.reciever.InterceptCallReciever"
+            android:enabled="false"
+            android:exported="false">
+        </receiver>
+    </application>
+
+</manifest>
